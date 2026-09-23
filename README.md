@@ -6,7 +6,7 @@
 
 ## 📌 Deskripsi Proyek
 
-Aplikasi web **Menu Management ("Sqi Market")** adalah mini aplikasi katalog makanan dan sistem pemesanan interaktif (Order Table) yang dibangun berdasarkan lembar studi kasus technical test. Aplikasi ini mengonsumsi API eksternal secara asinkronus (`async/await`), menyajikan data ke dalam layout **CSS Grid** yang responsif, mendukung operasi CRUD (Create, Read, Update, Delete) menu, pencarian dengan **debounce 500 ms**, serta simulasi keranjang belanja dengan sinkronisasi stok secara real-time.
+Aplikasi web **Menu Management ("Sqi Market")** adalah mini aplikasi katalog makanan dan sistem pemesanan interaktif (Order Table) yang dibangun berdasarkan lembar studi kasus technical test. Aplikasi ini mengonsumsi API eksternal secara asynchorous (`async/await`), menampilkan data ke dalam layout **CSS Grid** yang responsif, mendukung operasi CRUD (Create, Read, Update, Delete) menu, pencarian data, serta simulasi keranjang belanja dengan sinkronisasi stok secara real-time.
 
 ---
 
@@ -24,7 +24,46 @@ Aplikasi web **Menu Management ("Sqi Market")** adalah mini aplikasi katalog mak
   - Functional programming (`map`, `filter`, `reduce`, `sort`).
   - Debounce pattern (500 ms).
   - Centralized state management & event delegation.
-- **Tanpa Dependency Eksternal**: Bebas dari Bootstrap, TailwindCSS, React, Vue, jQuery, atau library eksternal lainnya.
+
+---
+
+## 📁 Struktur Direktori
+
+```text
+sqiva/
+├── index.html        # Struktur semantik HTML5, toolbar kontrol, grid menu, order table, & modal dialog
+├── style.css         # Desain sistem Vanilla CSS, CSS Grid, variabel warna, media queries, & animations
+├── main.js           # Logika aplikasi ES6+, async/await fetch, state management, debounce, CRUD, & cart
+└── README.md         # Dokumentasi teknis proyek
+```
+
+---
+
+## 💻 Cara Menjalankan Aplikasi
+
+Aplikasi ini bersifat murni statis (_zero dependencies_ / tidak memerlukan `npm install`):
+
+### Opsi 1: Buka Langsung di Browser
+
+Cukup klik dua kali (atau _drag & drop_) file `index.html` ke browser favorit Anda (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari).
+
+### Opsi 2: Menggunakan Local Development Server
+
+Jika ingin menjalankan melalui local server:
+
+**Menggunakan Python:**
+
+```bash
+python -m http.server 8080
+```
+
+Buka browser pada alamat: [http://localhost:8080](http://localhost:8080)
+
+**Menggunakan Node.js (npx serve / live-server):**
+
+```bash
+npx serve .
+```
 
 ---
 
@@ -118,46 +157,6 @@ Modal popup formulir tambah menu baru dan edit menu dengan validasi ketat pada s
     };
   }
   ```
-
----
-
-## 📁 Struktur Direktori
-
-```text
-sqiva/
-├── index.html        # Struktur semantik HTML5, toolbar kontrol, grid menu, order table, & modal dialog
-├── style.css         # Desain sistem Vanilla CSS, CSS Grid, variabel warna, media queries, & animations
-├── main.js           # Logika aplikasi ES6+, async/await fetch, state management, debounce, CRUD, & cart
-└── README.md         # Dokumentasi teknis proyek
-```
-
----
-
-## 💻 Cara Menjalankan Aplikasi
-
-Aplikasi ini bersifat murni statis (_zero dependencies_ / tidak memerlukan `npm install`):
-
-### Opsi 1: Buka Langsung di Browser
-
-Cukup klik dua kali (atau _drag & drop_) file `index.html` ke browser favorit Anda (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari).
-
-### Opsi 2: Menggunakan Local Development Server
-
-Jika ingin menjalankan melalui local server:
-
-**Menggunakan Python:**
-
-```bash
-python -m http.server 8080
-```
-
-Buka browser pada alamat: [http://localhost:8080](http://localhost:8080)
-
-**Menggunakan Node.js (npx serve / live-server):**
-
-```bash
-npx serve .
-```
 
 ---
 
