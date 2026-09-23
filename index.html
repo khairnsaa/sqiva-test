@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sqi Market - Menu Management</title>
+
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- App Header -->
+    <header class="app-header">
+      <div class="header-container">
+        <div class="header-brand">
+          <div class="brand-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+              <path d="M3 6h18" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-title">Sqi Market</h1>
+            <p class="brand-subtitle">Menu Management &amp; Order System</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <!-- Quick Cart Trigger for Mobile/Tablet -->
+          <button
+            class="cart-toggle-btn"
+            id="mobileCartBtn"
+            aria-label="Buka Keranjang"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path
+                d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+              />
+            </svg>
+            <span class="cart-badge" id="mobileCartCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Controls & Filter Toolbar -->
+    <section class="toolbar-section">
+      <div class="toolbar-container">
+        <div class="search-box">
+          <svg
+            class="search-icon"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari nama menu..."
+            autocomplete="off"
+          />
+          <button
+            class="clear-search-btn"
+            id="clearSearchBtn"
+            aria-label="Hapus pencarian"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="filters-group">
+          <div class="select-wrapper">
+            <select id="categoryFilter" aria-label="Filter Kategori">
+              <option value="ALL">Semua Kategori</option>
+              <option value="Food">Food</option>
+              <option value="Drink">Drink</option>
+            </select>
+          </div>
+
+          <div class="select-wrapper">
+            <select id="stockFilter" aria-label="Filter Status Stok">
+              <option value="ALL">Semua Stok</option>
+              <option value="IN_STOCK">In Stock</option>
+              <option value="SOLD_OUT">Sold Out</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-add-menu" id="openAddModalBtn">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+          <span>Tambah Menu</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Content Layout: Grid Menu + Order Table -->
+    <main class="main-layout">
+      <div class="content-wrapper">
+        <!-- Left / Center: Menu Management Area -->
+        <section class="menu-section">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h2 class="section-title">Daftar Menu</h2>
+              <span class="count-badge" id="menuCountBadge">0 menu</span>
+            </div>
+            <span class="filter-indicator" id="filterIndicator"></span>
+          </div>
+
+          <!-- CSS Grid Menu Container -->
+          <div class="menu-grid" id="menuGrid">
+            <!-- Menu cards will be dynamically injected here -->
+          </div>
+
+          <!-- Empty State Message -->
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+            </div>
+            <h3>Menu tidak ditemukan</h3>
+            <p>
+              Coba kata kunci pencarian lain atau ubah filter kategori/stok.
+            </p>
+            <button class="btn btn-secondary" id="resetFiltersBtn">
+              Reset Filter
+            </button>
+          </div>
+        </section>
+
+        <!-- Right: Order Table / Cart Area -->
+        <aside class="order-section" id="orderSidebar">
+          <div class="order-card">
+            <div class="order-header">
+              <div class="order-title-wrap">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="8" cy="21" r="1" />
+                  <circle cx="19" cy="21" r="1" />
+                  <path
+                    d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+                  />
+                </svg>
+                <h3>Order Table</h3>
+              </div>
+              <span class="order-badge" id="orderItemCountBadge">0 item</span>
+            </div>
+
+            <!-- Order Items Table -->
+            <div class="table-responsive">
+              <table class="order-table" id="orderTable">
+                <thead>
+                  <tr>
+                    <th class="col-menu">Menu</th>
+                    <th class="col-qty text-center">Qty</th>
+                    <th class="col-total text-right">Total</th>
+                    <th class="col-action text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                  <!-- Cart rows will be rendered here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty Cart Notice -->
+            <div class="empty-cart" id="emptyCartMessage">
+              <p>Belum ada menu yang dipilih.</p>
+              <small
+                >Klik tombol <strong>+ Add</strong> pada menu untuk
+                memesan.</small
+              >
+            </div>
+
+            <!-- Order Summary Footer -->
+            <div class="order-summary" id="orderSummarySection">
+              <div class="summary-row">
+                <span>Total Item:</span>
+                <strong id="summaryTotalQty">0</strong>
+              </div>
+              <div class="summary-row total-row">
+                <span>Total Bayar:</span>
+                <strong class="total-price" id="summaryTotalPrice">Rp 0</strong>
+              </div>
+
+              <div class="order-actions">
+                <button
+                  class="btn btn-outline-danger"
+                  id="clearCartBtn"
+                  disabled
+                >
+                  Kosongkan
+                </button>
+                <button
+                  class="btn btn-primary btn-checkout"
+                  id="checkoutBtn"
+                  disabled
+                >
+                  Checkout Pesanan
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Modal: Form Tambah & Edit Menu -->
+    <div class="modal-overlay" id="menuModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Tambah Menu Baru</h3>
+          <button
+            class="modal-close-btn"
+            id="closeModalBtn"
+            aria-label="Tutup Modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form id="menuForm" novalidate>
+          <input type="hidden" id="menuId" value="" />
+
+          <div class="form-group">
+            <label for="menuName"
+              >Nama Menu <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="menuName"
+              placeholder="Contoh: Nasi Goreng Spesial"
+              required
+            />
+            <span class="error-msg" id="nameError">Nama menu wajib diisi.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="menuCategory"
+                >Kategori <span class="required">*</span></label
+              >
+              <select id="menuCategory" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Food">Food</option>
+                <option value="Drink">Drink</option>
+              </select>
+              <span class="error-msg" id="categoryError"
+                >Pilih kategori menu.</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="menuPrice"
+                >Harga (Rp) <span class="required">*</span></label
+              >
+              <input
+                type="number"
+                id="menuPrice"
+                placeholder="10000"
+                min="1"
+                step="1"
+                required
+              />
+              <span class="error-msg" id="priceError"
+                >Harga wajib diisi dan lebih dari 0.</span
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="menuStock"
+                >Jumlah Stok <span class="required">*</span></label
+              >
+              <input
+                type="number"
+                id="menuStock"
+                placeholder="10"
+                min="1"
+                step="1"
+                required
+              />
+              <span class="error-msg" id="stockError"
+                >Stok wajib diisi, lebih dari 0, dan tidak boleh negatif.</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="menuImage">URL Gambar (Opsional)</label>
+              <input type="url" id="menuImage" placeholder="https://..." />
+              <span class="form-hint"
+                >Kosongkan jika ingin memakai gambar default</span
+              >
+            </div>
+          </div>
+
+          <!-- Image Preview Box -->
+          <div class="preview-box">
+            <span>Pratinjau Foto Menu:</span>
+            <div class="preview-img-wrap">
+              <img
+                id="imagePreview"
+                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+                alt="Preview Menu"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelModalBtn">
+              Batal
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveMenuBtn">
+              Simpan Menu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Konfirmasi Delete -->
+    <div class="modal-overlay" id="confirmDeleteModal" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+          <h3 class="modal-title">Konfirmasi Hapus</h3>
+          <button
+            class="modal-close-btn"
+            id="closeDeleteModalBtn"
+            aria-label="Tutup Modal"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Apakah Anda yakin ingin menghapus menu
+            <strong id="deleteMenuName">-</strong>?
+          </p>
+          <small class="text-muted"
+            >Tindakan ini tidak dapat dibatalkan dan item juga akan dihapus dari
+            Order Table jika ada.</small
+          >
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
+            Batal
+          </button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+            Ya, Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container for Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Logic -->
+    <script src="main.js"></script>
+  </body>
+</html>
